@@ -1,0 +1,21 @@
+{
+  "name": "MoviePilot-Plugins",
+  "version": "1.0.0",
+  "description": "MoviePilot v2插件集合",
+  "author": "Afushu",
+  "license": "MIT",
+  "plugins": {
+    "MediaManager": {
+      "name": "MediaManager",
+      "description": "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放",
+      "author": "Afushu",
+      "version": "1.0.0",
+      "tags": ["媒体管理", "网盘", "STRM", "视频播放"],
+      "icon": "folder-movie",
+      "homepage": "https://github.com/Afushu/MoviePilot-Plugins",
+      "repository": "https://github.com/Afushu/MoviePilot-Plugins",
+      "branch": "main",
+      "path": "plugins.v2/MediaManager"
+    }
+  }
+}

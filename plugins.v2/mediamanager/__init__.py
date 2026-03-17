@@ -74,4 +74,4 @@ class MediaManagerPlugin:
         ]
 
 # 注册插件
-PluginManager.register(MediaManagerPlugin())
+PluginManager.register(MediaManagerPlugin)

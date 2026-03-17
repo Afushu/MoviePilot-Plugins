@@ -39,16 +39,12 @@ class MediaManagerPlugin:
     
     def __init__(self):
         """初始化插件"""
-        self.config = settings.get_plugin_config(self.plugin_name, {})
-        self.enabled = self.config.get("enable", True)
-        logger.info(f"MediaManager插件初始化: {'启用' if self.enabled else '禁用'}")
+        self.config = {}
+        self.enabled = True
+        logger.info(f"MediaManager插件初始化: 启用")
     
     def initialize(self):
         """初始化插件功能"""
-        if not self.enabled:
-            logger.info("MediaManager插件已禁用")
-            return
-        
         logger.info("MediaManager插件初始化完成")
     
     def get_routes(self):

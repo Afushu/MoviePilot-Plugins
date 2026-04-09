@@ -101,6 +101,7 @@
             <div class="nav-tab" data-tab="transfer">文件转存</div>
             <div class="nav-tab" data-tab="douban">豆瓣搜索</div>
             <div class="nav-tab" data-tab="disk">网盘管理</div>
+            <div class="nav-tab" data-tab="auth">网盘授权</div>
         </div>
         
         <!-- STRM生成 -->
@@ -173,6 +174,25 @@
             </div>
             <button onclick="getDiskList()">获取文件列表</button>
             <div class="result" id="disk-result"></div>
+        </div>
+
+        <!-- 网盘授权 -->
+        <div class="tab-content" id="auth">
+            <h2>网盘扫码授权</h2>
+            <div class="form-group">
+                <label for="auth-disk-type">选择需要授权的网盘</label>
+                <select id="auth-disk-type">
+                    <option value="p115">115网盘</option>
+                    <option value="p123">123网盘</option>
+                    <option value="quark">夸克网盘</option>
+                </select>
+            </div>
+            <button onclick="getAuthQrcode()">获取登录二维码</button>
+            <div id="qrcode-container" style="margin-top: 20px; display: none; text-align: center;">
+                <img id="qrcode-img" src="" alt="登录二维码" style="max-width: 200px; border: 1px solid #ddd; padding: 10px; border-radius: 4px;">
+                <p id="qrcode-status" style="margin-top: 10px; font-weight: bold; color: #007bff;">请使用对应的网盘APP扫描二维码登录</p>
+            </div>
+            <div class="result" id="auth-result"></div>
         </div>
     </div>
     
@@ -326,6 +346,76 @@
             const element = document.getElementById(elementId);
             element.innerHTML = message;
             element.className = `result ${type}`;
+        }
+        
+        // --- 扫码授权相关逻辑 ---
+        let qrcodeCheckInterval = null;
+
+        async function getAuthQrcode() {
+            const diskType = document.getElementById('auth-disk-type').value;
+            const qrcodeContainer = document.getElementById('qrcode-container');
+            const qrcodeImg = document.getElementById('qrcode-img');
+            const qrcodeStatus = document.getElementById('qrcode-status');
+            
+            // 重置状态
+            if (qrcodeCheckInterval) {
+                clearInterval(qrcodeCheckInterval);
+            }
+            qrcodeContainer.style.display = 'none';
+            showResult('auth-result', '正在获取登录二维码...', 'success');
+
+            try {
+                const response = await fetch(`/api/mediamanager/auth/qrcode?disk_type=${diskType}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    showResult('auth-result', '获取二维码成功，请尽快扫描！', 'success');
+                    qrcodeImg.src = data.data.qrcode_url; 
+                    qrcodeStatus.textContent = "等待扫码...";
+                    qrcodeStatus.style.color = "#007bff";
+                    qrcodeContainer.style.display = 'block';
+
+                    // 开启定时器轮询检查登录状态
+                    checkAuthStatus(diskType, data.data.session_id);
+                } else {
+                    showResult('auth-result', `获取二维码失败: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                showResult('auth-result', `请求失败: ${error.message}`, 'error');
+            }
+        }
+
+        function checkAuthStatus(diskType, sessionId) {
+            const qrcodeStatus = document.getElementById('qrcode-status');
+            
+            qrcodeCheckInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/api/mediamanager/auth/status?disk_type=${diskType}&session_id=${sessionId}`);
+                    const data = await response.json();
+
+                    if (data.success) {
+                        if (data.data.status === 'success') {
+                            // 登录成功
+                            clearInterval(qrcodeCheckInterval);
+                            qrcodeStatus.textContent = "授权登录成功！";
+                            qrcodeStatus.style.color = "#28a745";
+                            showResult('auth-result', '网盘授权凭证已保存，可以正常使用各项功能了。', 'success');
+                        } else if (data.data.status === 'expired') {
+                            // 二维码过期
+                            clearInterval(qrcodeCheckInterval);
+                            qrcodeStatus.textContent = "二维码已过期，请重新获取";
+                            qrcodeStatus.style.color = "#dc3545";
+                        } else if (data.data.status === 'scanned') {
+                            // 已扫码待确认
+                            qrcodeStatus.textContent = "已扫码，请在手机上确认登录";
+                            qrcodeStatus.style.color = "#ffc107";
+                        }
+                        // 如果是 waiting 状态，继续轮询
+                    }
+                } catch (error) {
+                    console.error("检查授权状态异常", error);
+                }
+            }, 3000); // 每3秒查询一次
         }
     </script>
 </body>

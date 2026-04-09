@@ -75,3 +75,23 @@ async def get_disk_list(disk_type: str):
     except Exception as e:
         logger.error(f"获取网盘文件列表失败: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/api/mediamanager/auth/qrcode")
+async def get_auth_qrcode(disk_type: str):
+    """获取网盘登录二维码"""
+    try:
+        result = await service.get_auth_qrcode(disk_type)
+        return JSONResponse(content=result)
+    except Exception as e:
+        logger.error(f"获取登录二维码失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.get("/api/mediamanager/auth/status")
+async def check_auth_status(disk_type: str, session_id: str):
+    """检查网盘扫码登录状态"""
+    try:
+        result = await service.check_auth_status(disk_type, session_id)
+        return JSONResponse(content=result)
+    except Exception as e:
+        logger.error(f"检查登录状态失败: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))

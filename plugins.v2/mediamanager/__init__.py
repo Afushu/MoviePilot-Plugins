@@ -12,7 +12,7 @@ class MediaManager(_PluginBase):
     """媒体管理插件"""
 
     # 插件元数据
-    plugin_name = "MediaManager"
+    plugin_name = "媒体管理"
     plugin_desc = "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放"
     plugin_icon = "folder-movie"
     plugin_version = "1.0.9"

@@ -8,7 +8,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class MediaManagerPlugin(_PluginBase):
+class MediaManager(_PluginBase):
     """媒体管理插件"""
     
     # 插件元数据
@@ -45,8 +45,10 @@ class MediaManagerPlugin(_PluginBase):
         self.enabled = True
         logger.info(f"MediaManager插件初始化: 启用")
     
-    def initialize(self):
+    def init_plugin(self, config: dict = None):
         """初始化插件功能"""
+        self.config = config or {}
+        self.enabled = self.config.get("enable", True)
         logger.info("MediaManager插件初始化完成")
     
     def get_routes(self):
@@ -76,4 +78,4 @@ class MediaManagerPlugin(_PluginBase):
         ]
 
 # 注册插件
-PluginManager.register(MediaManagerPlugin)
+PluginManager.register(MediaManager)

@@ -2,16 +2,17 @@
 # 基于现有的媒体管理系统
 
 from app.core.plugin import PluginManager
+from app.plugins import _PluginBase
 from app.core.config import settings
 import logging
 
 logger = logging.getLogger(__name__)
 
-class MediaManagerPlugin:
+class MediaManagerPlugin(_PluginBase):
     """媒体管理插件"""
     
     # 插件元数据
-    plugin_name = "mediamanager"
+    plugin_name = "MediaManager"
     plugin_version = "1.0.9"
     plugin_description = "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放"
     plugin_author = "Afushu"
@@ -39,6 +40,7 @@ class MediaManagerPlugin:
     
     def __init__(self):
         """初始化插件"""
+        super().__init__()
         self.config = {}
         self.enabled = True
         logger.info(f"MediaManager插件初始化: 启用")

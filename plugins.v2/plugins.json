@@ -1,5 +1,5 @@
 {
-  "mediamanager": {
+  "MediaManager": {
     "name": "MediaManager",
     "description": "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放",
     "v2": true,

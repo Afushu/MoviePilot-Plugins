@@ -60,8 +60,17 @@ class MediaManager(_PluginBase):
 
     def get_api(self) -> list:
         """获取插件API"""
-        from .routes import router
-        return [{"path": "", "router": router}]
+        from .routes import mediamanager_index, test_endpoint, generate_strm, transfer_files, search_douban, get_disk_list, get_auth_qrcode, check_auth_status
+        return [
+            {"path": "/mediamanager", "endpoint": mediamanager_index, "methods": ["GET"]},
+            {"path": "/api/mediamanager/test", "endpoint": test_endpoint, "methods": ["GET"]},
+            {"path": "/api/mediamanager/strm/generate", "endpoint": generate_strm, "methods": ["POST"]},
+            {"path": "/api/mediamanager/transfer", "endpoint": transfer_files, "methods": ["POST"]},
+            {"path": "/api/mediamanager/douban/search", "endpoint": search_douban, "methods": ["GET"]},
+            {"path": "/api/mediamanager/disk/list", "endpoint": get_disk_list, "methods": ["GET"]},
+            {"path": "/api/mediamanager/auth/qrcode", "endpoint": get_auth_qrcode, "methods": ["GET"]},
+            {"path": "/api/mediamanager/auth/status", "endpoint": check_auth_status, "methods": ["GET"]}
+        ]
 
     def get_form(self) -> tuple:
         """

@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 service = MediaManagerService()
 
-@router.get("/mediamanager", response_class=HTMLResponse)
+@router.get("", response_class=HTMLResponse)
 async def mediamanager_index():
     """媒体管理首页"""
     try:

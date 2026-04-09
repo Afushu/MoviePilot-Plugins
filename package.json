@@ -3,11 +3,12 @@
     "name": "MediaManager",
     "description": "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放",
     "labels": "媒体管理,网盘,STRM,视频播放",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "icon": "folder-movie",
     "author": "Afushu",
     "level": 1,
     "history": {
+      "v1.0.9": "新增网盘扫码授权登录功能及更完善的API支持",
       "v1.0.8": "初始版本，支持多网盘集成、STRM文件生成和视频播放"
     }
   }

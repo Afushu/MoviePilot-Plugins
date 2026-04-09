@@ -12,7 +12,7 @@ class MediaManagerPlugin:
     
     # 插件元数据
     plugin_name = "mediamanager"
-    plugin_version = "1.0.8"
+    plugin_version = "1.0.9"
     plugin_description = "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放"
     plugin_author = "Afushu"
     plugin_homepage = "https://github.com/Afushu/MoviePilot-Plugins"

@@ -10,13 +10,14 @@ logger = logging.getLogger(__name__)
 
 class MediaManager(_PluginBase):
     """媒体管理插件"""
-    
+
     # 插件元数据
     plugin_name = "MediaManager"
+    plugin_desc = "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放"
+    plugin_icon = "folder-movie"
     plugin_version = "1.0.9"
-    plugin_description = "媒体资源管理和播放插件，支持多网盘集成、STRM文件生成和视频播放"
     plugin_author = "Afushu"
-    plugin_homepage = "https://github.com/Afushu/MoviePilot-Plugins"
+    plugin_author_link = "https://github.com/Afushu/MoviePilot-Plugins"
     
     # 插件配置项
     config_schema = {
@@ -43,37 +44,78 @@ class MediaManager(_PluginBase):
         super().__init__()
         self.config = {}
         self.enabled = True
-        logger.info(f"MediaManager插件初始化: 启用")
     
     def init_plugin(self, config: dict = None):
         """初始化插件功能"""
         self.config = config or {}
         self.enabled = self.config.get("enable", True)
         logger.info("MediaManager插件初始化完成")
-    
-    def get_routes(self):
-        """获取插件路由"""
+
+    def get_state(self) -> bool:
+        return self.enabled
+
+    @staticmethod
+    def get_command() -> list:
+        pass
+
+    def get_api(self) -> list:
+        """获取插件API"""
         from .routes import router
-        return router
-    
-    def get_menu_items(self):
-        """获取菜单项"""
+        return [{"path": "", "router": router}]
+
+    def get_form(self) -> tuple:
+        """
+        组装插件配置页面
+        """
         return [
             {
-                "name": "媒体管理",
-                "path": "/mediamanager",
-                "icon": "folder-movie",
-                "order": 100
+                "component": "VForm",
+                "content": [
+                    {
+                        "component": "VRow",
+                        "content": [
+                            {
+                                "component": "VCol",
+                                "props": {
+                                    "cols": 12,
+                                    "md": 6
+                                },
+                                "content": [
+                                    {
+                                        "component": "VSwitch",
+                                        "props": {
+                                            "model": "enable",
+                                            "label": "启用插件",
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
-        ]
-    
-    def get_api_endpoints(self):
-        """获取API端点"""
+        ], {
+            "enable": True,
+        }
+
+    def get_page(self) -> list:
+        """
+        插件的详情页面组件，支持VUE3语法和Vuetify3组件
+        """
         return [
             {
-                "path": "/api/mediamanager",
-                "methods": ["GET", "POST"],
-                "description": "媒体管理API"
+                "component": "div",
+                "content": [
+                    {
+                        "component": "v-alert",
+                        "props": {
+                            "type": "info",
+                            "variant": "tonal",
+                            "class": "mb-4"
+                        },
+                        "content": "此插件的媒体管理功能请访问 /mediamanager 操作。"
+                    }
+                ]
             }
         ]
 

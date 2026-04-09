@@ -96,6 +96,22 @@ class MediaManager(_PluginBase):
                                             "model": "enable",
                                             "label": "启用插件",
                                         }
+                                    },
+                                    {
+                                        "component": "VTextField",
+                                        "props": {
+                                            "model": "api_key",
+                                            "label": "API Key",
+                                            "placeholder": "请输入API Key（可选）",
+                                            "clearable": True
+                                        }
+                                    },
+                                    {
+                                        "component": "VSwitch",
+                                        "props": {
+                                            "model": "debug",
+                                            "label": "调试模式",
+                                        }
                                     }
                                 ]
                             }
@@ -105,6 +121,8 @@ class MediaManager(_PluginBase):
             }
         ], {
             "enable": True,
+            "api_key": "",
+            "debug": False
         }
 
     def get_page(self) -> list:
@@ -120,9 +138,9 @@ class MediaManager(_PluginBase):
                         "props": {
                             "type": "info",
                             "variant": "tonal",
-                            "class": "mb-4"
-                        },
-                        "content": "此插件的媒体管理功能请访问 /mediamanager 操作。"
+                            "class": "mb-4",
+                            "text": "此插件的媒体管理功能请访问 /mediamanager 操作。"
+                        }
                     }
                 ]
             }

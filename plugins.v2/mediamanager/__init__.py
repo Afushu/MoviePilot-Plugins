@@ -152,12 +152,10 @@ class MediaManager(_PluginBase):
                 "component": "div",
                 "content": [
                     {
-                        "component": "v-alert",
+                        "component": "div",
+                        "text": "此插件的媒体管理功能请访问 /mediamanager 操作。",
                         "props": {
-                            "type": "info",
-                            "variant": "tonal",
-                            "class": "mb-4",
-                            "text": "此插件的媒体管理功能请访问 /mediamanager 操作。"
+                            "class": "mb-4 text-body-1"
                         }
                     }
                 ]

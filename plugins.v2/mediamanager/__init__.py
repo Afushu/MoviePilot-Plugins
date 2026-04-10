@@ -96,7 +96,16 @@ class MediaManager(_PluginBase):
                                             "model": "enable",
                                             "label": "启用插件",
                                         }
-                                    },
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "VCol",
+                                "props": {
+                                    "cols": 12,
+                                    "md": 6
+                                },
+                                "content": [
                                     {
                                         "component": "VTextField",
                                         "props": {
@@ -105,7 +114,16 @@ class MediaManager(_PluginBase):
                                             "placeholder": "请输入API Key（可选）",
                                             "clearable": True
                                         }
-                                    },
+                                    }
+                                ]
+                            },
+                            {
+                                "component": "VCol",
+                                "props": {
+                                    "cols": 12,
+                                    "md": 6
+                                },
+                                "content": [
                                     {
                                         "component": "VSwitch",
                                         "props": {

@@ -1,9 +1,7 @@
 # MoviePilot v2 媒体管理插件
 # 基于现有的媒体管理系统
 
-from app.core.plugin import PluginManager
 from app.plugins import _PluginBase
-from app.core.config import settings
 import logging
 
 logger = logging.getLogger(__name__)
@@ -162,5 +160,3 @@ class MediaManager(_PluginBase):
             }
         ]
 
-# 注册插件
-PluginManager.register(MediaManager)

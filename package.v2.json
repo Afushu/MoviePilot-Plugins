@@ -1,0 +1,16 @@
+{
+  "DownloadFailureCooldown": {
+    "name": "下载失败冷却调优",
+    "description": "让下载失败的冷却时长可配置、按下载链接区分冷却，并如实记录真实失败原因。避免站点短时 404 触发的 24 小时冷却让已恢复可用的资源被长期跳过、错过免费期。",
+    "labels": "下载管理",
+    "version": "1.0.0",
+    "icon": "downloadfailurecooldown.png",
+    "author": "Afushu",
+    "author_url": "https://github.com/Afushu",
+    "level": 1,
+    "system_version": ">=3.0.0",
+    "history": {
+      "v1.0.0": "初始版本：冷却时长可配置、冷却指纹纳入下载链接、如实记录真实失败原因"
+    }
+  }
+}

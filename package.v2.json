@@ -12,5 +12,19 @@
     "history": {
       "v1.0.0": "初始版本：冷却时长可配置、冷却指纹纳入下载链接、如实记录真实失败原因"
     }
+  },
+  "PanSearchStrm": {
+    "name": "网盘搜索STRM",
+    "description": "搜索盘搜、聚影与 Telegram 的网盘资源，115 扫码授权后一键转存、生成长期分享并落地 STRM 到本地媒体库。",
+    "labels": "网盘,搜索",
+    "version": "1.0.0",
+    "icon": "pansearchstrm.png",
+    "author": "Afushu",
+    "author_url": "https://github.com/Afushu",
+    "level": 1,
+    "system_version": ">=3.0.0",
+    "history": {
+      "v1.0.0": "初始版本：盘搜/聚影/Telegram 三渠道搜索、115 扫码授权、转存后生成长期分享并落地 STRM"
+    }
   }
 }

@@ -24,6 +24,7 @@
     "author_url": "https://github.com/Afushu",
     "level": 1,
     "system_version": ">=3.0.0",
+    "v3": false,
     "history": {
       "v1.0.0": "初始版本：盘搜/聚影/Telegram 三渠道搜索、115 扫码授权、转存后生成长期分享并落地 STRM"
     }

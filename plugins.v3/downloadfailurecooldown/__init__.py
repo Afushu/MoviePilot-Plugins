@@ -356,9 +356,19 @@ class DownloadFailureCooldown(_PluginBase):
                 original_fp_func = getattr(original_fp, "__func__", original_fp)
                 plugin_self = self
 
-                def patched_fingerprint(cls, context: Any) -> Optional[str]:
-                    """在原指纹基础上追加下载链接摘要，避免新链接被旧失败拦住。"""
-                    base = original_fp_func(cls, context)
+                def patched_fingerprint(cls, context: Any, **kwargs: Any) -> Optional[str]:
+                    """在原指纹基础上追加下载链接摘要，避免新链接被旧失败拦住。
+
+                    兼容主程序 v3.0.0+ 传入的 ``resource_backoff`` 关键字（整包退避开关）；
+                    旧版本无此参数时降级为不含该关键字调用。
+                    """
+                    resource_backoff = kwargs.get("resource_backoff", False)
+                    try:
+                        base = original_fp_func(
+                            cls, context, resource_backoff=resource_backoff
+                        )
+                    except TypeError:
+                        base = original_fp_func(cls, context)
                     if not base:
                         return base
                     digest = plugin_self._link_digest(
